@@ -12,10 +12,9 @@ Pod::Spec.new do |s|
   s.summary          = "This is utils for system class."
 
   s.homepage         = "https://github.com/Musjoy/MJUtils"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Raymond" => "Ray.musjoy@gmail.com" }
-  s.source           = { :git => "https://github.com/Musjoy/MJUtils.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/Musjoy/MJUtils.git", :tag => "v-#{s.version}" }
 
   s.ios.deployment_target = '7.0'
 
