@@ -1,0 +1,8 @@
+use_frameworks!
+
+
+target 'MJUtils_Tests', :exclusive => true do
+  pod 'MJUtils', :path => '../'
+
+  
+end
