@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef locString
+#define locString(fmt, ...) [NSString localizedString:fmt, nil]
+#endif
+
 @interface NSString (Utils)
 
 /** 本地字符串替换 */

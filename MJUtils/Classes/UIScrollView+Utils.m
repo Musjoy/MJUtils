@@ -137,7 +137,7 @@
 @end
 
 
-@interface UIScrollView (Utils)
+@interface UIScrollView (Refresh)
 
 @property (nonatomic, strong) UIControl<MJRefreshView> *header;
 @property (nonatomic, strong) UIControl<MJRefreshView> *footer;
