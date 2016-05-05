@@ -12,7 +12,7 @@
 #import "ControllerManager.h"
 #define THEControllerManager ControllerManager
 #elif defined(MODULE_CONTROLLER_MANAGER)
-#import "ControllerManager.h"
+#import "MJControllerManager.h"
 #define THEControllerManager MJControllerManager
 #endif
 
