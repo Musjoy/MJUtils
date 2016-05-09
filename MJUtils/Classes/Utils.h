@@ -10,6 +10,7 @@
 #define Common_Utils_h
 
 #import "NSObject+Utils.h"
+#import "NSDate+Utils.h"
 #import "NSDictionary+Utils.h"
 #import "UIColor+Utils.h"
 #import "NSString+Utils.h"

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #ifndef kRefreshColor
-#define kRefreshColor ([UIColor whiteColor])
+#define kRefreshColor ([UIColor grayColor])
 #endif
 
 @interface UIScrollView (Utils)
