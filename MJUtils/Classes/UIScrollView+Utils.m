@@ -14,8 +14,16 @@
 @protocol MJRefreshView <NSObject>
 
 @required
+- (BOOL)isRefreshing;
 - (void)beginRefreshing;
 - (void)endRefreshing;
+
+@end
+
+@interface UIScrollView (Refresh)
+
+@property (nonatomic, strong) UIControl<MJRefreshView> *header;
+@property (nonatomic, strong) UIControl<MJRefreshView> *footer;
 
 @end
 
@@ -23,7 +31,7 @@
 
 @property (nonatomic, strong) UIActivityIndicatorView *acv;
 @property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, assign) BOOL refreshing;
+@property (nonatomic, assign, getter=isRefreshing) BOOL refreshing;
 
 
 - (void)beginRefreshing;
@@ -55,8 +63,20 @@
 
 - (void)endRefreshing
 {
+    if (!self.isRefreshing) {
+        return;
+    }
     //wierd handle way, otherwise it will flash the table view when reloaddata
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (!self.isRefreshing) {
+            return;
+        }
+        if ([self.scrollView.header isRefreshing]) {
+            self.refreshing = NO;
+            [self.acv stopAnimating];
+            return;
+        }
+        
         self.refreshing = NO;
         [self.acv stopAnimating];
         
@@ -65,6 +85,16 @@
         } completion:^(BOOL finished) {
         }];
     });
+}
+
+- (void)endRefreshingNow
+{
+    if (!self.isRefreshing) {
+        return;
+    }
+    self.refreshing = NO;
+    [self.acv stopAnimating];
+    self.scrollView.contentInset = self.scrollView.scrollIndicatorInsets;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -83,7 +113,10 @@
 {
     [super willMoveToSuperview:newSuperview];
     
-    [self endRefreshing];
+//    if (newSuperview == nil) {
+//        [self endRefreshingNow];
+//    }
+    
     [self.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
     [self.scrollView removeObserver:self forKeyPath:@"contentOffset" context:nil];
 
@@ -137,12 +170,7 @@
 @end
 
 
-@interface UIScrollView (Refresh)
 
-@property (nonatomic, strong) UIControl<MJRefreshView> *header;
-@property (nonatomic, strong) UIControl<MJRefreshView> *footer;
-
-@end
 
 @implementation UIScrollView (Utils)
 
@@ -153,7 +181,7 @@ static char DXRefreshFooterViewKey;
     objc_setAssociatedObject(self, &DXRefreshHeaderViewKey, header, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIView *)header {
+- (UIView<MJRefreshView> *)header {
     return objc_getAssociatedObject(self, &DXRefreshHeaderViewKey);
 }
 
@@ -161,7 +189,7 @@ static char DXRefreshFooterViewKey;
     objc_setAssociatedObject(self, &DXRefreshFooterViewKey, footer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIView *)footer {
+- (UIView<MJRefreshView> *)footer {
     return objc_getAssociatedObject(self, &DXRefreshFooterViewKey);
 }
 
@@ -184,12 +212,16 @@ static char DXRefreshFooterViewKey;
 - (void)headerBeginRefreshing
 {
     if ([self.header isKindOfClass:[UIRefreshControl class]]) {
+        // 如果footer在refresh，停掉它
+        DXRfreshFooter *footer = (DXRfreshFooter *)self.footer;
+        if (footer && footer.isRefreshing) {
+            [footer endRefreshingNow];
+        }
         UIRefreshControl *refresh = (UIRefreshControl *)self.header;
-        CGFloat contentOffsetY = - 64.0;
+        CGFloat contentOffsetY = -60;
         if (self.contentOffset.y < 0) {
-            contentOffsetY = -124.0f;
             UIEdgeInsets indicatorInset = self.scrollIndicatorInsets;
-            contentOffsetY -= (indicatorInset.top - 64);
+            contentOffsetY -= indicatorInset.top;
         }
         [self setContentOffset:CGPointMake(0, contentOffsetY) animated:YES];
         [refresh beginRefreshing];
@@ -228,6 +260,11 @@ static char DXRefreshFooterViewKey;
 {
     if (!self.footer) {
         return;
+    }
+    
+    UIRefreshControl *refresh = (UIRefreshControl *)self.header;
+    if (refresh && refresh.isRefreshing) {
+        [refresh endRefreshing];
     }
     
     CGFloat upOffset = self.contentSize.height - CGRectGetHeight(self.bounds);
