@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MJUtils"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "This is utils for system class."
 
   s.homepage         = "https://github.com/Musjoy/MJUtils"
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
     'GCC_PREPROCESSOR_DEFINITIONS' => 'MODULE_UTILS'
   }
 
-  s.dependency 'ModuleCapability', '~> 0.1.1'
+  s.dependency 'ModuleCapability', '~> 0.1.2'
   s.prefix_header_contents = '#import "ModuleCapability.h"'
 
 end
