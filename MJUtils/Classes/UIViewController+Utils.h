@@ -7,15 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#if defined(MODULE_SUB_CONTROLLER_MANAGER)
-#import "ControllerManager.h"
-#define THEControllerManager ControllerManager
-#elif defined(MODULE_CONTROLLER_MANAGER)
-#import "MJControllerManager.h"
-#define THEControllerManager MJControllerManager
-#endif
-
+#import HEADER_CONTROLLER_MANAGER
 
 @interface UIViewController (Utils)
 
