@@ -23,9 +23,10 @@
 /**
  *	@brief	提示
  *
- *	@param 	msg 	提示信息
+ *	@param 	massage     提示信息
  */
-- (void)alertMsg:(NSString*)msg;
+- (void)alertMsg:(NSString*)massage;
+- (void)alert:(NSString *)title message:(NSString *)massage;
 
 
 /**
