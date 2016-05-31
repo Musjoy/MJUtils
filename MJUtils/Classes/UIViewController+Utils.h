@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#ifdef HEADER_CONTROLLER_MANAGER
-#import HEADER_CONTROLLER_MANAGER
-#endif
+
 
 @interface UIViewController (Utils)
 
@@ -20,36 +18,6 @@
 
 /** 从xib初始化 */
 - (id)initFromNib;
-
-
-/**
- *	@brief	提示
- *
- *	@param 	massage     提示信息
- */
-- (void)alertMsg:(NSString*)massage;
-- (void)alert:(NSString *)title message:(NSString *)massage;
-
-
-/**
- *	@brief	显示加载框
- *
- *	@param 	labelText 	加载框显示内容
- */
-- (void)startLoading:(NSString *)labelText;
-- (void)startLoading:(NSString *)labelText detailText:(NSString *)detailText;
-
-/**
- *	@brief	隐藏加载框
- */
-- (void)stopLoading;
-
-/**
- *	@brief	弹出底部的提示文字
- *
- *	@param 	str 需要弹出的字符串
- */
-- (void)toast:(NSString *)str;
 
 
 #pragma mark -

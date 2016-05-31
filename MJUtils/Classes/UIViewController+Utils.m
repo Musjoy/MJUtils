@@ -9,8 +9,6 @@
 #import "UIViewController+Utils.h"
 
 
-
-
 @implementation UIViewController (Utils)
 
 - (id)initFromNib
@@ -41,48 +39,7 @@
     LogInfo(@"This function need be overwrite by [%@]", NSStringFromClass([self class]));
 }
 
-
-- (void)alertMsg:(NSString *)massage
-{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:massage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)alert:(NSString *)title message:(NSString *)massage
-{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title message:massage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)startLoading:(NSString *)labelText
-{
-#ifdef THEControllerManager
-    [THEControllerManager startLoading:labelText];
-#endif
-}
-
-- (void)startLoading:(NSString *)labelText detailText:(NSString *)detailText
-{
-#ifdef THEControllerManager
-    [THEControllerManager startLoading:labelText detailText:detailText];
-#endif
-}
-
-- (void)stopLoading
-{
-#ifdef THEControllerManager
-    [THEControllerManager stopLoading];
-#endif
-}
-
-- (void)toast:(NSString *)str
-{
-#ifdef THEControllerManager
-    [THEControllerManager toast:str];
-#endif
-}
-
-
+#pragma mark -
 
 - (void)configWithData:(id)data
 {
