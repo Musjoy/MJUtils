@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#ifdef HEADER_CONTROLLER_MANAGER
 #import HEADER_CONTROLLER_MANAGER
+#endif
 
 @interface UIViewController (Utils)
 

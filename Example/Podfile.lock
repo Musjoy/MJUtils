@@ -1,7 +1,7 @@
 PODS:
-  - MJUtils (0.1.0):
-    - ModuleCapability (~> 0.1.1)
-  - ModuleCapability (0.1.1)
+  - MJUtils (0.1.1):
+    - ModuleCapability (~> 0.1.2)
+  - ModuleCapability (0.1.2)
 
 DEPENDENCIES:
   - MJUtils (from `../`)
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MJUtils: f97fbb20b9848d4b127c6d25dd68de7b4c8d2133
-  ModuleCapability: c58431991173e091993386b1840082a2540f2de1
+  MJUtils: 0e1d68b753e897b89e4b3f2b1ef28b5993216fee
+  ModuleCapability: 35cea7154ff855362682e90ecf1be529a533c931
 
 COCOAPODS: 0.39.0
