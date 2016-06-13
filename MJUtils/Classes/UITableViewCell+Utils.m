@@ -56,7 +56,11 @@
         if (cellTitleKey && cellTitleKey.length > 0) {
             [self.textLabel setText:locString(cellTitleKey)];
         } else {
-            [self.textLabel setText:[aDic objectForKey:@"cellTitle"]];
+            NSString *title = [aDic objectForKey:@"cellTitle"];
+            if (title.length == 0) {
+                title = [aDic objectForKey:@"title"];
+            }
+            [self.textLabel setText:title];
         }
         NSString *subTitle = [aDic objectForKey:@"subTitleUpdate"];
         if (subTitle == nil) {
