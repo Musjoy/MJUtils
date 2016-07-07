@@ -15,6 +15,7 @@
 {
     UIColor *result = nil;
     unsigned int colorCode = 0;
+    int length = inColorString.length * 4;
     unsigned char redByte, greenByte, blueByte;
     
     if (nil != inColorString)
@@ -22,10 +23,19 @@
         NSScanner *scanner = [NSScanner scannerWithString:inColorString];
         (void) [scanner scanHexInt:&colorCode]; // ignore error
     }
-    redByte = (unsigned char) (colorCode >> 16);
-    greenByte = (unsigned char) (colorCode >> 8);
-    blueByte = (unsigned char) (colorCode); // masks off high bits
-    result = [UIColor colorWithRed: (float)redByte / 0xff green: (float)greenByte/ 0xff blue: (float)blueByte / 0xff alpha:1.0];    
+    redByte = (unsigned char) (colorCode >> (length-8));
+    greenByte = (unsigned char) (colorCode >> (length-16));
+    blueByte = (unsigned char) (colorCode  >> (length-24)); // masks off high bits
+    float alpha = 1.0;
+    if (length > 24) {
+        unsigned char alphaByte = (unsigned char) (colorCode - (colorCode  >> (length-24)));
+        if (length == 28) {
+            alpha = (float)alphaByte / 0xf;
+        } else if (length == 32) {
+            alpha = (float)alphaByte / 0xff;
+        }
+    }
+    result = [UIColor colorWithRed: (float)redByte / 0xff green: (float)greenByte/ 0xff blue: (float)blueByte / 0xff alpha:alpha];
     return result;
 }
 
