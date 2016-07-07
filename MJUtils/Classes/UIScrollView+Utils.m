@@ -9,6 +9,9 @@
 #import "UIScrollView+Utils.h"
 #import <objc/runtime.h>
 #import "UIColor+Utils.h"
+#ifdef MODULE_THEME_MANAGER
+#import "MJThemeManager.h"
+#endif
 
 
 @protocol MJRefreshView <NSObject>
@@ -87,6 +90,12 @@
     });
 }
 
+- (void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
+    [self.acv setColor:tintColor];
+}
+
 - (void)endRefreshingNow
 {
     if (!self.isRefreshing) {
@@ -103,7 +112,11 @@
         self.acv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         CGFloat height = CGRectGetHeight(frame) * 0.8;
         self.acv.frame = CGRectMake((CGRectGetWidth(frame)-height)*0.5, 0, height, height);
-        [self.acv setColor:kRefreshColor];
+#ifdef MODULE_THEME_MANAGER
+        [self setTintColor:[MJThemeManager colorFor:kThemeRefreshColor]];
+#else
+        [self setTintColor:kRefreshColor];
+#endif
         [self addSubview:self.acv];
     }
     return self;
@@ -201,11 +214,20 @@ static char DXRefreshFooterViewKey;
     }
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    [refresh setTintColor:kRefreshColor];
     [refresh addTarget:target action:action forControlEvents:UIControlEventValueChanged];
     [self addSubview:refresh];
     [self sendSubviewToBack:refresh];
     self.alwaysBounceVertical = YES;
+#ifdef MODULE_THEME_MANAGER
+    [refresh setTintColor:[MJThemeManager colorFor:kThemeRefreshColor]];
+#else
+    [refresh setTintColor:kRefreshColor];
+#endif
+    // 解决首次颜色不变问题
+    UIEdgeInsets indicatorInset = self.scrollIndicatorInsets;
+    CGFloat contentOffsetY = -indicatorInset.top;
+    [self setContentOffset:CGPointMake(0, contentOffsetY + -1) animated:NO];
+    [self setContentOffset:CGPointMake(0, contentOffsetY + 0) animated:NO];
     self.header = (UIControl<MJRefreshView> *)refresh;
 }
 
@@ -251,7 +273,6 @@ static char DXRefreshFooterViewKey;
         self.footer = nil;
     }
     self.footer = [[DXRfreshFooter alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), [DXRfreshFooter standHeight])];
-    [self.footer setTintColor:kRefreshColor];
     [self.footer addTarget:target action:action forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.footer];
 }

@@ -9,6 +9,9 @@
 #import "UITableViewCell+Utils.h"
 #import "UIView+Utils.h"
 #import "NSString+Utils.h"
+#ifdef MODULE_THEME_MANAGER
+#import "MJThemeManager.h"
+#endif
 
 #define DEFAULT_CELL_HEIGHT 48
 
@@ -30,15 +33,19 @@
 + (__kindof UITableViewCell *)cellWithStyle:(UITableViewCellStyle)style reuseIdentifier:(nullable NSString *)reuseIdentifier
 {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:NSStringFromClass([self class]) ofType:@"nib"];
+    UITableViewCell *cell = nil;
     if (filePath.length > 0) {
-        UITableViewCell *cell = [self viewFromNib];
+        cell = [self viewFromNib];
         if (cell == nil) {
             cell = [[self alloc] init];
         }
-        return cell;
     } else {
-        return [[super alloc] initWithStyle:style reuseIdentifier:reuseIdentifier];
+        cell = [[super alloc] initWithStyle:style reuseIdentifier:reuseIdentifier];
     }
+#ifdef MODULE_THEME_MANAGER
+    [cell reloadTheme];
+#endif
+    return cell;
 }
 
 - (void)configWithData:(id)data
