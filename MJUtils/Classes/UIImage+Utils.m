@@ -41,6 +41,29 @@ CGFloat x_RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     return theImage;
 }
 
++ (instancetype)animatedImageNamed:(NSString *)name tintColor:(UIColor *)tintColor duration:(NSTimeInterval)duration
+{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    
+    short index = 0;
+    BOOL findFirst = NO;
+    while ( index <= 1024 ) {
+        NSString *imageName = [NSString stringWithFormat:@"%@%d", name, index++];
+        UIImage *image = [UIImage imageNamed:imageName];
+        if (image == nil) {
+            if (findFirst) {
+                break;
+            } else {
+                continue;
+            }
+        }
+        findFirst = YES;
+        [images addObject:[image imageWithColor:tintColor]];
+    }
+    
+    return [self animatedImageWithImages:images duration:duration];
+}
+
 //改变图片颜色
 - (UIImage *)imageWithColor:(UIColor *)color
 {
@@ -53,7 +76,7 @@ CGFloat x_RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     CGContextClipToMask(context, rect, self.CGImage);
     [color setFill];
     CGContextFillRect(context, rect);
-    UIImage*newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
 }

@@ -14,6 +14,7 @@
 + (UIImage *)createImageWithColor:(UIColor *)color;
 + (UIImage *)createImageWithColor:(UIColor *)color withSize:(CGSize)size;
 
++ (instancetype)animatedImageNamed:(NSString *)name tintColor:(UIColor *)tintColor duration:(NSTimeInterval)duration;
 - (UIImage *)imageWithColor:(UIColor *)color;
 
 - (UIImage *)imageAtRect:(CGRect)rect;
