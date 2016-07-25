@@ -112,6 +112,7 @@
         self.acv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         CGFloat height = CGRectGetHeight(frame) * 0.8;
         self.acv.frame = CGRectMake((CGRectGetWidth(frame)-height)*0.5, 0, height, height);
+        [self.acv setAutoresizingMask:(UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin)];
 #ifdef MODULE_THEME_MANAGER
         [self setTintColor:[MJThemeManager colorFor:kThemeRefreshColor]];
 #else
@@ -273,6 +274,7 @@ static char DXRefreshFooterViewKey;
         self.footer = nil;
     }
     self.footer = [[DXRfreshFooter alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), [DXRfreshFooter standHeight])];
+    [self.footer setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     [self.footer addTarget:target action:action forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.footer];
 }
