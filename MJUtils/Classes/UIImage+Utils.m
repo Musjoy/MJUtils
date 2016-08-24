@@ -382,5 +382,27 @@ CGFloat x_RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
 }
 
 
+- (UIImage *)grayImage
+{
+    int width = self.size.width;
+    int height = self.size.height;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate (nil,width,height,8,0,colorSpace,kCGImageAlphaNone);
+    CGColorSpaceRelease(colorSpace);
+    
+    if (context == NULL) {
+        return nil;
+    }
+    
+    CGContextDrawImage(context,CGRectMake(0, 0, width, height), self.CGImage);
+    CGImageRef grayImageRef = CGBitmapContextCreateImage(context);
+    UIImage *grayImage = [UIImage imageWithCGImage:grayImageRef];
+    CGContextRelease(context);
+    CGImageRelease(grayImageRef);
+    
+    return grayImage;
+}
+
 
 @end

@@ -27,6 +27,7 @@
 - (UIImage *)imageByFillingSize:(CGSize)targetSize;
 - (UIImage *)fixOrientation;
 
+- (UIImage*)grayImage;
 
 
 @end
