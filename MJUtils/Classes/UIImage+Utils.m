@@ -388,7 +388,7 @@ CGFloat x_RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     int height = self.size.height;
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-    CGContextRef context = CGBitmapContextCreate (nil,width,height,8,0,colorSpace,kCGImageAlphaNone);
+    CGContextRef context = CGBitmapContextCreate (nil,width,height,8,0,colorSpace,kCGImageAlphaOnly);
     CGColorSpaceRelease(colorSpace);
     
     if (context == NULL) {
