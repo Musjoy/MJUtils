@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #ifndef locString
-#define locString(fmt, ...) [NSString localizedString:fmt, nil]
+#define locString(...) [NSString localizedString:__VA_ARGS__, nil]
 #endif
 
 @interface NSString (Utils)
