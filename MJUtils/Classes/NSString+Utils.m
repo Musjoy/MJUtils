@@ -46,6 +46,9 @@ static NSString *s_localTempPath = nil;
         
         va_start(arguments, format);
         while ((eachReplaceStr = va_arg(arguments, id))) {
+            if ([eachReplaceStr isKindOfClass:[NSNumber class]]) {
+                eachReplaceStr = [(NSNumber *)eachReplaceStr stringValue];
+            }
             NSString *str = [NSString stringWithFormat:@"{%d}", index];
             returnStr = [returnStr stringByReplacingOccurrencesOfString:str withString:eachReplaceStr];
             index++;
