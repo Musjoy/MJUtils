@@ -247,6 +247,7 @@ static char DXRefreshFooterViewKey;
             contentOffsetY -= indicatorInset.top;
         }
         [self setContentOffset:CGPointMake(0, contentOffsetY) animated:YES];
+        [refresh layoutIfNeeded];
         [refresh beginRefreshing];
     }
 }
