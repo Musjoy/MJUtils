@@ -15,26 +15,31 @@
 {
     UIColor *result = nil;
     unsigned int colorCode = 0;
-    int length = inColorString.length * 4;
+    int length = inColorString.length;
+    if (length > 8) {
+        inColorString = [inColorString substringFromIndex:length-8];
+        length = 8;
+    }
     unsigned char redByte, greenByte, blueByte;
     
-    if (nil != inColorString)
-    {
+    if (nil != inColorString) {
         NSScanner *scanner = [NSScanner scannerWithString:inColorString];
         (void) [scanner scanHexInt:&colorCode]; // ignore error
     }
-    redByte = (unsigned char) (colorCode >> (length-8));
-    greenByte = (unsigned char) (colorCode >> (length-16));
-    blueByte = (unsigned char) (colorCode  >> (length-24)); // masks off high bits
+    
     float alpha = 1.0;
-    if (length > 24) {
-        unsigned char alphaByte = (unsigned char) (colorCode - (colorCode  >> (length-24)));
-        if (length == 28) {
+    if (length > 6) {
+        unsigned char alphaByte = (unsigned char)(colorCode  >> 24);
+        colorCode = colorCode - ((colorCode >> 24) << 24);
+        if (length == 7) {
             alpha = (float)alphaByte / 0xf;
-        } else if (length == 32) {
+        } else if (length == 8) {
             alpha = (float)alphaByte / 0xff;
         }
     }
+    redByte = (unsigned char) (colorCode >> 16);
+    greenByte = (unsigned char) (colorCode >> 8);
+    blueByte = (unsigned char)colorCode;
     result = [UIColor colorWithRed: (float)redByte / 0xff green: (float)greenByte/ 0xff blue: (float)blueByte / 0xff alpha:alpha];
     return result;
 }
