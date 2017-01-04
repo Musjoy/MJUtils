@@ -28,7 +28,7 @@ CGFloat x_RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     return theImage;
 }
 
-+ (UIImage *)createImageWithColor:(UIColor *)color withSize:(CGSize)size
++ (UIImage *)createImageWithColor:(UIColor *)color andSize:(CGSize)size
 {
     CGRect rect=CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContext(rect.size);

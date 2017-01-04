@@ -12,7 +12,7 @@
 @interface UIImage (Utils)
 
 + (UIImage *)createImageWithColor:(UIColor *)color;
-+ (UIImage *)createImageWithColor:(UIColor *)color withSize:(CGSize)size;
++ (UIImage *)createImageWithColor:(UIColor *)color andSize:(CGSize)size;
 
 + (instancetype)animatedImageNamed:(NSString *)name tintColor:(UIColor *)tintColor duration:(NSTimeInterval)duration;
 - (UIImage *)imageWithColor:(UIColor *)color;
