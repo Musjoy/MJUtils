@@ -15,7 +15,7 @@
 {
     UIColor *result = nil;
     unsigned int colorCode = 0;
-    int length = inColorString.length;
+    NSInteger length = inColorString.length;
     if (length > 8) {
         inColorString = [inColorString substringFromIndex:length-8];
         length = 8;
