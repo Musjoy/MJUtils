@@ -8,14 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef locString
-#define locString(...) [NSString localizedString:__VA_ARGS__, nil]
-#endif
 
 @interface NSString (Utils)
-
-/** 本地字符串替换 */
-+ (NSString *)localizedString:(NSString *)format, ... NS_REQUIRES_NIL_TERMINATION;
 
 /** 版本号检查 */
 - (BOOL)isNewThanVersion:(NSString *)oldVersion;

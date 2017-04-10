@@ -8,7 +8,7 @@
 
 #import "UITableViewCell+Utils.h"
 #import "UIView+Utils.h"
-#import "NSString+Utils.h"
+#import HEADER_LOCALIZE
 #ifdef MODULE_THEME_MANAGER
 #import "MJThemeManager.h"
 #endif

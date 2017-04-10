@@ -31,34 +31,6 @@ static NSString *s_localTempPath = nil;
 
 @implementation NSString (Utils)
 
-+ (NSString *)localizedString:(NSString *)format, ...
-{
-    NSString *returnStr = NSLocalizedString(format, nil);
-    if (returnStr && ![returnStr isEqualToString:format]) {
-        
-    } else {
-        
-    }
-    if (returnStr) {
-        va_list arguments;
-        NSString *eachReplaceStr;
-        int index = 0;
-        
-        va_start(arguments, format);
-        while ((eachReplaceStr = va_arg(arguments, id))) {
-            if ([eachReplaceStr isKindOfClass:[NSNumber class]]) {
-                eachReplaceStr = [(NSNumber *)eachReplaceStr stringValue];
-            }
-            NSString *str = [NSString stringWithFormat:@"{%d}", index];
-            returnStr = [returnStr stringByReplacingOccurrencesOfString:str withString:eachReplaceStr];
-            index++;
-        }
-        va_end(arguments);
-    }
-    return returnStr;
-}
-
-
 - (BOOL)isNewThanVersion:(NSString *)oldVersion
 {
     NSArray *arrayNew = [self componentsSeparatedByString:@"."];
