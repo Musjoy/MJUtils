@@ -26,8 +26,6 @@
  *	@brief	使用数据data来初始化cell
  *
  *	@param 	data 	初始化cell所需要的数据
- *
- *	@return	void
  */
 - (void)configWithData:(nullable id)data;
 
@@ -37,8 +35,6 @@
  *
  *	@param 	data        初始化cell所需要的数据
  *	@param 	attachData 	初始化cell所需要附加的数据
- *
- *	@return	void
  */
 - (void)configWithData:(nullable id)data andAttach:(nullable id)attachData;
 
