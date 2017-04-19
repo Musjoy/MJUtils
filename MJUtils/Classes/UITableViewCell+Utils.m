@@ -12,6 +12,9 @@
 #ifdef MODULE_THEME_MANAGER
 #import "MJThemeManager.h"
 #endif
+#ifdef MODULE_CACHE_MANAGER
+#import <UIImageView+WebImage.h>
+#endif
 
 #define DEFAULT_CELL_HEIGHT 48
 
@@ -50,23 +53,21 @@
 
 - (void)configWithData:(id)data
 {
-    // need be overwrite
-//    LogInfo(@"This function need be overwrite by [%@]", NSStringFromClass([self class]));
-
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *aDic = (NSDictionary *)data;
         NSString *icon = aDic[@"icon"];
         if (icon.length > 0) {
+#ifdef MODULE_CACHE_MANAGER
+            [self.imageView setImageWithName:icon];
+#else
             [self.imageView setImage:[UIImage imageNamed:icon]];
+#endif
         }
-        NSString *cellTitleKey = aDic[@"cellTitleKey"];
-        if (cellTitleKey && cellTitleKey.length > 0) {
-            [self.textLabel setText:locString(cellTitleKey)];
+        NSString *titleKey = aDic[@"titleKey"]?:aDic[@"cellTitleKey"];
+        if (titleKey && titleKey.length > 0) {
+            [self.textLabel setText:locString(titleKey)];
         } else {
-            NSString *title = [aDic objectForKey:@"cellTitle"];
-            if (title.length == 0) {
-                title = [aDic objectForKey:@"title"];
-            }
+            NSString *title = aDic[@"title"]?:aDic[@"cellTitle"];
             [self.textLabel setText:title];
         }
         NSString *subTitle = [aDic objectForKey:@"subTitleUpdate"];
@@ -89,8 +90,6 @@
 
 - (void)configWithData:(id)data andAttach:(id)attachData
 {
-    // need be overwrite
-//    LogInfo(@"This function need be overwrite by [%@]", NSStringFromClass([self class]));
     [self configWithData:data];
 }
 
