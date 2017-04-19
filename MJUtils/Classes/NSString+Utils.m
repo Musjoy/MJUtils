@@ -10,25 +10,6 @@
 #import <CommonCrypto/CommonDigest.h>
 
 
-// 本地音频保存目录
-#define LOCAL_MUSIC_FOLDER_NAME @"localMusic"
-// 本地图片保存目录
-#define LOCAL_IMAGE_FOLDER_NAME @"localImage"
-// 本地头像保存目录
-#define LOCAL_AVATAR_FOLDER_NAME @"localAvatar"
-// 本地临时保存目录
-#define LOCAL_TEMP_FOLDER_NAME @"localTemp"
-
-// 本地图片存储路径
-static NSString *s_localMusicPath = nil;
-// 本地图片存储路径
-static NSString *s_localImagePath = nil;
-// 本地头像存储路径
-static NSString *s_localAvatarPath = nil;
-// 本地临时文件存储路径
-static NSString *s_localTempPath = nil;
-
-
 @implementation NSString (Utils)
 
 - (BOOL)isNewThanVersion:(NSString *)oldVersion
