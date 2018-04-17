@@ -9,11 +9,11 @@
 #import "UITableViewCell+Utils.h"
 #import "UIView+Utils.h"
 #import HEADER_LOCALIZE
-#ifdef MODULE_THEME_MANAGER
-#import "MJThemeManager.h"
+#ifdef  MODULE_THEME_MANAGER
+#import <MJThemeManager/MJThemeManager.h>
 #endif
-#ifdef MODULE_CACHE_MANAGER
-#import <UIImageView+WebImage.h>
+#ifdef  MODULE_CACHE_MANAGER
+#import <MJCacheManager/UIImageView+WebImage.h>
 #endif
 
 #define DEFAULT_CELL_HEIGHT 48

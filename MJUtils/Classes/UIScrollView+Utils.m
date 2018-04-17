@@ -9,8 +9,8 @@
 #import "UIScrollView+Utils.h"
 #import <objc/runtime.h>
 #import "UIColor+Utils.h"
-#ifdef MODULE_THEME_MANAGER
-#import "MJThemeManager.h"
+#ifdef  MODULE_THEME_MANAGER
+#import <MJThemeManager/MJThemeManager.h>
 #endif
 
 
