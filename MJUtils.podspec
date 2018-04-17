@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MJUtils"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "This is utils for system class."
 
   s.homepage         = "https://github.com/Musjoy/MJUtils"
